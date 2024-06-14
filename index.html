@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="Style.css" />
+  <link
+    href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+    rel="stylesheet"
+    integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH"
+    crossorigin="anonymous"
+  />
+  <script type="module" src="./src/Controllers/script.mjs"></script>
+  <title>Rutas</title>
+</head>
+<body>
+  <header>
+    <div id="conteiner">Rutas</div>
+  </header>
+  
+  <main>
+    <div id="recopilarDatos">
+      <h1 id="title">Guardar Nombres en LocalStorage</h1>
+      <input type="text" id="nameInput" placeholder="Introduce un nombre" />
+      <button id="btn-2">Guardar Nombre</button>
+      <h2 id="title">Guarda las distancias entre lugares</h2>
+      <select id="select1"></select>
+      <select id="select2"></select>
+      <input
+        type="number"
+        id="horas"
+        placeholder="Introduce la duración en horas"
+      />
+      <button id="guardarHoras">Guardar</button>
+    </div>
+
+    <div id="container-result">
+      <div>
+        <h2 id="title">Seleccionar el inicio del Recorrido</h2>
+        <select id="select3"></select>
+        <button id="inicarRecorrido">Iniciar Recorrido</button>
+      </div>
+  
+      <div id="Historial">
+        <h2 id="title">Historial del Recorrido:</h2>
+        <ul id="recorridoList"></ul>
+      </div>
+    </div>
+
+    <div id="horasGuardadas">
+      <h2 id="title">Horas Guardadas:</h2>
+      <ul id="horasList"></ul>
+    </div>
+  </main>
+</body>
+</html>

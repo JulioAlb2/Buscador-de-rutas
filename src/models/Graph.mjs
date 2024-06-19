@@ -117,26 +117,26 @@ class Graph {
   }
 }
 
-let node = new Node(0, "h");
-let node2 = new Node(4, "a");
-let node3 = new Node(5, "b");
-let node4 = new Node(1, "d");
-let node5 = new Node(15, "c");
-let grafo = new Graph();
+// let node = new Node(0, "h");
+// let node2 = new Node(4, "a");
+// let node3 = new Node(5, "b");
+// let node4 = new Node(1, "d");
+// let node5 = new Node(15, "c");
+// let grafo = new Graph();
 
-// lugar inicial y lugar final
-grafo.addVertice(node, node2); //0,1
-grafo.addVertice(node, node3); //0,2
-grafo.addVertice(node2, node4); //0,2
-grafo.addVertice(node2, node5); //0,2
-grafo.addVertice(1, 3);
-grafo.addVertice(1, 4);
-grafo.addVertice(2, 4);
-console.log("Breadth First Traversal starting from vertex 0: ");
-console.log(grafo.listaAyacencia);
-grafo.bfs(node);
-const graph = grafo.convertToGraph(grafo.listaAyacencia);
-const result = grafo.dijkstraAlgorithm(graph);
-console.log("distancia mas corta " + result);
+// // lugar inicial y lugar final
+// grafo.addVertice(node, node2); //0,1
+// grafo.addVertice(node, node3); //0,2
+// grafo.addVertice(node2, node4); //0,2
+// grafo.addVertice(node2, node5); //0,2
+// grafo.addVertice(1, 3);
+// grafo.addVertice(1, 4);
+// grafo.addVertice(2, 4);
+// console.log("Breadth First Traversal starting from vertex 0: ");
+// console.log(grafo.listaAyacencia);
+// grafo.bfs(node);
+// const graph = grafo.convertToGraph(grafo.listaAyacencia);
+// const result = grafo.dijkstraAlgorithm(graph);
+// console.log("distancia mas corta " + result);
 
 export { Graph };

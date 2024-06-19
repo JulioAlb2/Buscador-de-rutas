@@ -36,25 +36,107 @@ class Graph {
     }
     return history;
   }
+
+  convertToGraph = (data, start, end) => {
+    const graph = {};
+    for (const key in data) {
+      graph[key] = {};
+      data[key].forEach((node) => {
+        graph[key][node.next] = node.value;
+      });
+    }
+
+    // Renombrar nodos según los valores seleccionados
+    graph.start = graph[start];
+    delete graph[start];
+
+    for (const key in graph) {
+      for (const subKey in graph[key]) {
+        if (subKey === start) {
+          graph[key].start = graph[key][subKey];
+          delete graph[key][subKey];
+        }
+      }
+    }
+
+    for (const key in graph) {
+      for (const subKey in graph[key]) {
+        if (subKey === end) {
+          graph[key].end = graph[key][subKey];
+          delete graph[key][subKey];
+        }
+      }
+    }
+
+    graph.end = {};
+
+    return graph;
+  };
+
+  dijkstraAlgorithm(graph) {
+    const costs = Object.assign({ end: Infinity }, graph.start);
+    const parents = { end: null };
+    const processed = [];
+
+    let node = this.findLowestCostNode(costs, processed);
+
+    while (node) {
+      let cost = costs[node];
+      let children = graph[node];
+      for (let n in children) {
+        let newCost = cost + children[n];
+        if (!costs[n] || costs[n] > newCost) {
+          costs[n] = newCost;
+          parents[n] = node;
+        }
+      }
+      processed.push(node);
+      node = this.findLowestCostNode(costs, processed);
+    }
+
+    let optimalPath = ["end"];
+    let parent = parents.end;
+    while (parent) {
+      optimalPath.push(parent);
+      parent = parents[parent];
+    }
+    optimalPath.reverse();
+
+    return { distance: costs.end, path: optimalPath };
+  }
+
+  findLowestCostNode(costs, processed) {
+    return Object.keys(costs).reduce((lowest, node) => {
+      if (lowest === null || costs[node] < costs[lowest]) {
+        if (!processed.includes(node)) {
+          lowest = node;
+        }
+      }
+      return lowest;
+    }, null);
+  }
 }
 
-// let node= new Node(0,"h")
-// let node2= new Node(4,"a")
-// let node3 =new Node (5,"b")
-// let node4 =new Node (1,"d")
-// let node5 =new Node (15,"c")
-// let grafo = new Graph()
+let node = new Node(0, "h");
+let node2 = new Node(4, "a");
+let node3 = new Node(5, "b");
+let node4 = new Node(1, "d");
+let node5 = new Node(15, "c");
+let grafo = new Graph();
 
-//   //lugar inicial y lugar final
-// grafo.addVertice(node,node2)//0,1
-// grafo.addVertice(node,node3)//0,2
-// grafo.addVertice(node2,node4)//0,2
-// grafo.addVertice(node2,node5)//0,2
-// // grafo.addVertice(1,3)
-// // grafo.addVertice(1,4)
-// // grafo.addVertice(2,4)
-// console.log ("Breadth First Traversal starting from vertex 0: ")
-// console.log(grafo.listaAyacencia)
-// grafo.bfs(node)
+// lugar inicial y lugar final
+grafo.addVertice(node, node2); //0,1
+grafo.addVertice(node, node3); //0,2
+grafo.addVertice(node2, node4); //0,2
+grafo.addVertice(node2, node5); //0,2
+grafo.addVertice(1, 3);
+grafo.addVertice(1, 4);
+grafo.addVertice(2, 4);
+console.log("Breadth First Traversal starting from vertex 0: ");
+console.log(grafo.listaAyacencia);
+grafo.bfs(node);
+const graph = grafo.convertToGraph(grafo.listaAyacencia);
+const result = grafo.dijkstraAlgorithm(graph);
+console.log("distancia mas corta " + result);
 
 export { Graph };

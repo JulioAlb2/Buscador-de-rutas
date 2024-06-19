@@ -6,6 +6,7 @@ let grafo = new Graph();
 let btnGuardarNombreCiudades = document.getElementById("btn-2");
 let btnGuardarHoras = document.getElementById("guardarHoras");
 let btnInicarRecorrido = document.getElementById("inicarRecorrido");
+let btnDijkstra = document.getElementById("IniciarDikstra");
 
 btnGuardarNombreCiudades.addEventListener("click", () => {
   let name = document.getElementById("nameInput").value;
@@ -24,10 +25,15 @@ function populateSelects() {
   const select1 = document.getElementById("select1");
   const select2 = document.getElementById("select2");
   const select3 = document.getElementById("select3");
-
+  const select4 = document.getElementById("select4");
+  const select5 = document.getElementById("select5");
   select1.innerHTML = '<option value="">Seleccionar Nombre</option>';
   select2.innerHTML = '<option value="">Seleccionar Nombre</option>';
   select3.innerHTML = '<option value="">Seleccionar Nombre</option>';
+  select4.innerHTML = '<option value="">Seleccionar Nombre</option>';
+  select5.innerHTML = '<option value="">Seleccionar Nombre</option>';
+
+
 
   names.forEach((name) => {
     const option1 = document.createElement("option");
@@ -44,19 +50,31 @@ function populateSelects() {
     option3.value = name;
     option3.textContent = name;
     select3.appendChild(option3);
+
+    const option4 = document.createElement("option");
+    option4.value = name;
+    option4.textContent = name;
+    select4.appendChild(option4);
+
+    const option5 = document.createElement("option");
+    option5.value = name;
+    option5.textContent = name;
+    select5.appendChild(option5);
   });
 }
 
 btnGuardarHoras.addEventListener("click", () => {
   const lugarInicial = document.getElementById("select1").value;
   const lugarFinal = document.getElementById("select2").value;
-  const horas = document.getElementById("horas").value;
+  const horas = parseInt(document.getElementById("horas").value);
 
   if (lugarInicial && lugarFinal && horas) {
     let nodeInicial = new Node(0, lugarInicial);
     let nodeFinal = new Node(horas, lugarFinal);
+    let nodeInicialReverse = new Node(horas, lugarInicial);
 
     grafo.addVertice(nodeInicial, nodeFinal);
+    grafo.addVertice(nodeFinal, nodeInicialReverse);
     console.log(grafo.listaAyacencia);
     alert("Horas de camino añadidas correctamente: " + lugarInicial + " a " + lugarFinal + " - " + horas + " horas");
 
@@ -84,6 +102,17 @@ btnInicarRecorrido.addEventListener("click", () => {
     recorridoList.appendChild(li);
   });
 });
+
+btnDijkstra.addEventListener("click", () => {
+  let lugarInicial = document.getElementById("select4").value;
+  let lugarFinal = document.getElementById("select5").value
+
+  let graph = grafo.convertToGraph(grafo.listaAyacencia, lugarInicial, lugarFinal);
+  console.log(graph)
+  let history = grafo.dijkstraAlgorithm(graph);
+  console.log(history);
+
+  });
 
 window.onload = () => {
   populateSelects();

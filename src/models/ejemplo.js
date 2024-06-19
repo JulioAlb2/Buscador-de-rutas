@@ -53,7 +53,7 @@ const convertToGraph = (data, start, end) => {
     return graph;
 };
 
-// Implementación del algoritmo de Dijkstra
+
 function dijkstraAlgorithm(graph) {
     const costs = Object.assign({ end: Infinity }, graph.start);
     const parents = { end: null };
@@ -97,13 +97,6 @@ function findLowestCostNode(costs, processed) {
     }, null);
 }
 
-// Definición de Node para la estructura de ejemplo
-class Node {
-    constructor(value, next) {
-        this.value = value;
-        this.next = next;
-    }
-}
 
 
 // Inicialización y prueba

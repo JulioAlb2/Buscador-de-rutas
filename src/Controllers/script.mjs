@@ -17,6 +17,7 @@ btnGuardarNombreCiudades.addEventListener("click", () => {
         localStorage.setItem("names", JSON.stringify(names));
         document.getElementById("nameInput").value = "";
         alert("Nombre de la ciudad añadido correctamente: " + name);
+        populateSelects()
     }
 });
 

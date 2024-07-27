@@ -97,7 +97,7 @@ btnInicarRecorrido.addEventListener("click", () => {
     recorridoList.innerHTML = "";
     history.forEach((item) => {
         const li = document.createElement("li");
-        li.textContent = item;
+        li.textContent = item.destination;
         recorridoList.appendChild(li);
     });
 });

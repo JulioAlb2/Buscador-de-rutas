@@ -62,10 +62,5 @@ class LinKedList {
   }
 }
 
-// LinKedList = new LinKedList();
-// LinKedList.add(11);
-// LinKedList.add(23);
-// LinKedList.add(99);
-// LinKedList.add(27);
 
 export { LinKedList };

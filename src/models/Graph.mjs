@@ -1,52 +1,67 @@
 import { Node } from "./Node.mjs";
+import { LinKedList } from "../models/LinKedList.mjs";
 
 class Graph {
   constructor() {
-    this.listaAyacencia = {};
+    this.listaAyacencia = new LinKedList
   }
 
   addVertice(u, v) {
     if (!this.listaAyacencia[u.next]) {
-      this.listaAyacencia[u.next] = [];
+      this.listaAyacencia[u.next] = new LinKedList();
     }
-    this.listaAyacencia[u.next].push(v);
+    this.listaAyacencia[u.next].add(v);
   }
-
   bfs(startNode) {
     let queue = [];
-    let visit = new Array(Object.keys(this.listaAyacencia).length).fill(false);
-    let history = [];
-    visit[startNode.next] = true; //.next
-    queue.push(startNode.next); //.next
-    history.push(startNode.next);
-
-    // console.log(queue);
-
+    let visit = {};
+    let history = {};
+    let path = {};
+  
+    visit[startNode.next] = true;
+    queue.push(startNode.next);
+    history[startNode.next] = [];
+    path[startNode.next] = null; 
+  
     while (queue.length != 0) {
-      let curretNode = queue.shift();
-      // console.log(curretNode + " ");
-
-      for (let verticeAdyacente of this.listaAyacencia[curretNode] || []) {
-        if (!visit[verticeAdyacente.next]) {
-          visit[verticeAdyacente.next] = true;
-          queue.push(verticeAdyacente.next);
-          history.push(verticeAdyacente.next);
+      let currentNode = queue.shift();
+  
+      let adjacentList = this.listaAyacencia[currentNode];
+      if (adjacentList) {
+        let node = adjacentList.getElementAt(0);
+        while (node) {
+          if (!visit[node.value.next]) {
+            visit[node.value.next] = true;
+            queue.push(node.value.next);
+            history[node.value.next] = history[currentNode].concat(node.value.next);
+            path[node.value.next] = currentNode;
+          }
+          node = node.next;
         }
       }
     }
-    return history;
-  }
 
-  convertToGraph = (data, start, end) => {
+    let result = [];
+    for (const destination in history) {
+      result.push({
+        destination: destination,
+        path: history[destination]
+      });
+    }
+  
+    return result;
+  }
+  convertToGraph(data, start, end) {
     const graph = {};
     for (const key in data) {
       graph[key] = {};
-      data[key].forEach((node) => {
-        graph[key][node.next] = node.value;
-      });
+      let node = data[key].getElementAt(0);
+      while (node) {
+        graph[key][node.value.next] = node.value.value;
+        node = node.next;
+      }
     }
 
-    // Renombrar nodos según los valores seleccionados
     graph.start = graph[start];
     delete graph[start];
 
@@ -71,7 +86,7 @@ class Graph {
     graph.end = {};
 
     return graph;
-  };
+  }
 
   dijkstraAlgorithm(graph, lugarFinal) {
     const costs = Object.assign({ end: Infinity }, graph.start);

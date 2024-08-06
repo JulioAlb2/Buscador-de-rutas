@@ -96,19 +96,17 @@ class Graph {
 
     let optimalPath = [lugarFinal];
     let parent = parents.end;
-    console.log(parents)
     while (parent) {
       optimalPath.push(parent);
       parent = parents[parent];
     }
+    // optimalPath.push(lugarInicial)
     optimalPath.reverse();
 
     return { distance: costs.end, path: optimalPath };
   }
 
-  getAdjacentNodes(node) {
-    return this.listaAyacencia[node.next] || [];
-  }
+
 
   findLowestCostNode(costs, processed) {
     return Object.keys(costs).reduce((lowest, node) => {
@@ -119,6 +117,10 @@ class Graph {
       }
       return lowest;
     }, null);
+  }
+
+  getAdjacentNodes(node) {
+    return this.listaAyacencia[node.next] || [];
   }
 }
 

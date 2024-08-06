@@ -122,8 +122,8 @@ btnDijkstra.addEventListener("click", () => {
                 ${adjacentNodes.map(node => `<li>${node.next} (${node.value} horas)</li>`).join('')}
             </ul>
         `;
-        return  
-    }
+        return;
+    } 
     let history = grafo.dijkstraAlgorithm(graph, lugarFinal);
     console.log(history);
     

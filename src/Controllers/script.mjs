@@ -107,9 +107,26 @@ btnDijkstra.addEventListener("click", () => {
 
     let graph = grafo.convertToGraph(grafo.listaAyacencia, lugarInicial, lugarFinal);
     console.log(graph);
-    let history = grafo.dijkstraAlgorithm(graph);
-    console.log(history);
+    if (!lugarFinal) {
+        // Obtener nodos adyacentes si lugarFinal es nulo
+        let nodeInicial = new Node(0, lugarInicial);
+        let adjacentNodes = grafo.getAdjacentNodes(nodeInicial);
 
+        console.log(`Nodos adyacentes a ${lugarInicial}:`, adjacentNodes);
+        
+        const resultBox = document.getElementById("result");
+        resultBox.style.display = "block";
+        resultBox.innerHTML = `
+            <h3>Nodos Adyacentes a ${lugarInicial}</h3>
+            <ul>
+                ${adjacentNodes.map(node => `<li>${node.next} (${node.value} horas)</li>`).join('')}
+            </ul>
+        `;
+        return  
+    }
+    let history = grafo.dijkstraAlgorithm(graph, lugarFinal);
+    console.log(history);
+    
     displayResult(history);
 });
 

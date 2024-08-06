@@ -1,7 +1,6 @@
 import { Node } from "./Node.mjs";
 
-//recorrido de profundidad y lista de adyacencia
-
+//recorrido de profundidad y lista de adyacencia  
 class LinKedList {
   #head;
   #size;

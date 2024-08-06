@@ -75,7 +75,7 @@ function dijkstraAlgorithm(graph) {
         node = findLowestCostNode(costs, processed);
     }
 
-    let optimalPath = ['end'];
+    let optimalPath = [this.end];
     let parent = parents.end;
     while (parent) {
         optimalPath.push(parent);
